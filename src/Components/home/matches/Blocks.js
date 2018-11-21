@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { firebaseMatches } from "../../../firebase";
 import { Slide } from "react-reveal";
-import { firebaseLooer, reverseArray } from "../../ui/misc";
+// import { firebaseLooer, reverseArray } from "../../ui/misc";
 
 import MatchesBlocks from "../../ui/matches_blocks";
 export class Blocks extends Component {
@@ -27,7 +27,6 @@ export class Blocks extends Component {
         ))
       : null;
   render() {
-    console.log("hell", this.state.matches);
     return (
       <div className="home_matches">{this.showMatches(this.state.matches)}</div>
     );
