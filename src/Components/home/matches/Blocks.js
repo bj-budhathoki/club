@@ -10,7 +10,7 @@ export class Blocks extends Component {
   };
   componentDidMount() {
     firebaseMatches
-      .limitToLast(6)
+      .limitToLast(8)
       .once("value")
       .then(snapshot => {
         this.setState({ matches: snapshot.val() });
