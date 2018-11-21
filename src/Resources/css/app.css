@@ -210,7 +210,7 @@ footer .footer_discl {
   position: absolute;
   background: #0e1731;
   color: #ffffff;
-  font-size: 8rem;
+  font-size: 7rem;
   text-transform: uppercase;
   padding: 0px 20px;
 }
@@ -219,7 +219,7 @@ footer .footer_discl {
   position: absolute;
   background: #0e1731;
   color: #ffffff;
-  font-size: 8rem;
+  font-size: 7rem;
   text-transform: uppercase;
   padding: 0px 20px;
 }
@@ -261,6 +261,7 @@ footer .footer_discl {
 .match_block .match_wrapper .match_top,
 .match_block .match_wrapper .match_bottom {
   display: flex;
+  margin-right: 1rem;
 }
 .match_block .match_wrapper .match_bottom {
   margin-top: 5px;
