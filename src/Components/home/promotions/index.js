@@ -7,6 +7,7 @@ const Promotion = () => {
     <div className="promotion_wrapper" style={{ background: "#fff" }}>
       <div className="container">
         <Animation />
+        <Enroll />
       </div>
     </div>
   );
