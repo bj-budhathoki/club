@@ -1,17 +1,28 @@
 import React from "react";
 
-const FormFields = ({ fromData, id, change }) => {
+const FormFields = ({ formdata, id, change }) => {
+  const showError = () => {
+    let errorMessage = (
+      <div className="error_label">
+        {formdata.validation && !formdata.valid
+          ? formdata.validationMessage
+          : null}
+      </div>
+    );
+    return errorMessage;
+  };
   const tenderTempate = () => {
     let fromTemplate = null;
-    switch (fromData.element) {
+    switch (formdata.element) {
       case "input":
         fromTemplate = (
           <div>
             <input
-              {...fromData.config}
-              value={fromData.value}
+              {...formdata.config}
+              value={formdata.value}
               onChange={event => change({ event, id })}
             />
+            {showError()}
           </div>
         );
         break;

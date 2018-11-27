@@ -21,11 +21,23 @@ export class Enroll extends Component {
         },
         valid: false,
         validationMessage: ""
-      },
-      name: {}
+      }
     }
   };
-  submitForm = () => {};
+  submitForm = event => {
+    event.preventDefault();
+    let newData = {};
+    let formIsValid = true;
+    for (let key in this.state.formData) {
+      newData[key] = this.state.formData[key].value;
+      formIsValid = this.state.formData[key].valid && formIsValid;
+    }
+    if (formIsValid) {
+      console.log(newData);
+    } else {
+      this.setState({ formError: true });
+    }
+  };
   handleForm = element => {
     const newFormData = { ...this.state.formData };
     const newElement = { ...this.state.formData[element.id] };
@@ -35,20 +47,26 @@ export class Enroll extends Component {
     newElement.validationMessage = validData[1];
     newFormData[element.id] = newElement;
     console.log(newFormData);
-    this.setState({ formData: newFormData });
+    this.setState({ formData: newFormData, formError: false });
   };
   render() {
     return (
       <Fade>
         <div className="enroll_wrapper">
-          <form onSubmit={this.submitForm}>
+          <form onSubmit={event => this.submitForm(event)}>
             <div className="enroll_title">Enter your email</div>
             <div className="enroll_input">
               <FormFields
                 id={"email"}
-                fromData={this.state.formData.email}
+                formdata={this.state.formData.email}
                 change={this.handleForm}
               />
+              {this.state.formError && (
+                <div className="error_label">somthing is wrong</div>
+              )}
+              <button className="" onClick={event => this.submitForm(event)}>
+                Enroll
+              </button>
             </div>
           </form>
         </div>
