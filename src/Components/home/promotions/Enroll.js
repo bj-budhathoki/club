@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Fade from "react-reveal";
 import FormFields from "../../ui/formFields";
 import { validate } from "../../ui/misc";
+import { firebasePromotions } from "../../../firebase";
 export class Enroll extends Component {
   state = {
     forError: false,
@@ -33,10 +34,37 @@ export class Enroll extends Component {
       formIsValid = this.state.formData[key].valid && formIsValid;
     }
     if (formIsValid) {
-      console.log(newData);
+      firebasePromotions
+        .orderByChild("email")
+        .equalTo(newData.email)
+        .once("value")
+        .then(snapshot => {
+          if (snapshot.val() === null) {
+            firebasePromotions.push(newData);
+            this.resetFormSuccess(true);
+          } else {
+            this.resetFormSuccess(false);
+          }
+        });
     } else {
       this.setState({ formError: true });
     }
+  };
+  resetFormSuccess = type => {
+    const newFormData = { ...this.state.formData };
+    for (let key in newFormData) {
+      newFormData[key].value = "";
+      newFormData[key].valid = false;
+      newFormData[key].validationMessage = "";
+    }
+    this.setState({
+      formError: false,
+      formData: newFormData,
+      formSuccess: type ? "Congratulations" : "Aleady on database"
+    });
+    setTimeout(() => {
+      this.setState({ formSuccess: "" });
+    }, 1000);
   };
   handleForm = element => {
     const newFormData = { ...this.state.formData };
@@ -46,7 +74,6 @@ export class Enroll extends Component {
     newElement.valid = validData[0];
     newElement.validationMessage = validData[1];
     newFormData[element.id] = newElement;
-    console.log(newFormData);
     this.setState({ formData: newFormData, formError: false });
   };
   render() {
@@ -64,9 +91,15 @@ export class Enroll extends Component {
               {this.state.formError && (
                 <div className="error_label">somthing is wrong</div>
               )}
+              <div className="success_message">{this.state.formSuccess}</div>
               <button className="" onClick={event => this.submitForm(event)}>
                 Enroll
               </button>
+              <div className="enroll_discl">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+                aspernatur dolor nobis quos esse ullam vitae reprehenderit
+                molestias exercitationem porro?
+              </div>
             </div>
           </form>
         </div>

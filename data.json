@@ -164,5 +164,6 @@
       "shortName": "mancity",
       "thum": "manchester_city"
     }
-  ]
+  ],
+  "promotions": [{ "email": "bijay@gmail.com" }]
 }
